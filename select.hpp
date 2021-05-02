@@ -1,7 +1,8 @@
 #ifndef __SELECT_HPP__
 #define __SELECT_HPP__
 
-#include <cstring>
+#include <string>
+using namespace std;
 
 class Select
 {
@@ -38,4 +39,41 @@ public:
     virtual bool select(const std::string& s) const = 0;
 };
 
+class Select_Contains: public Select {
+protected:
+    int column;
+    string input;
+public:   
+    Select_Contains(const Spreadsheet* sheet, const std::string& name, const std::string& name2) {
+        column = sheet->get_column_by_name(name);
+        input = name2;
+    }
+    bool select(const Spreadsheet* sheet, int row) const {
+        string test; 
+        test = sheet->cell_data(row,column);
+        size_t found = test.find(input);
+        if (found != string::npos) {
+           return true;
+        }
+        else {
+           return false;
+        }
+    }
+};
+
+class Select_Not: public Select {
+protected:
+   Select* position;
+public:
+   Select_Not(Select* pos) {
+       position = pos;
+   }
+   ~Select_Not() {
+       delete position;
+   }
+   bool select(const Spreadsheet* sheet, int row) const {
+       return !(this->position->select(sheet,row));
+   }
+};
+ 
 #endif //__SELECT_HPP__
