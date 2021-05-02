@@ -99,5 +99,30 @@ public:
 			return false;
 		}
 	}
+};
+
+class Select_Or : public Select { 
+  protected:
+      Select *position1;
+      Select *position2;
+  
+  public:
+      Select_Or(Select* pos1, Select* pos2) {
+               position1 = pos1;
+               position2 = pos2;
+      }
+     ~Select_Or() {
+           delete position1;
+           delete position2;
+      }
+      bool select(const Spreadhsheet* sheet, int row) const {
+           if (position1->select(sheet, row) == true || position2->select(sheet, row) == true) {
+                 return true;
+            }
+           else {
+                return false;
+            }
+       }
+};
  
 #endif //__SELECT_HPP__
