@@ -91,7 +91,7 @@ public:
 		delete position1;
 		delete position2;
 	}
-	bool select(const Spreadhsheet* sheet, int row) const {
+	bool select(const Spreadsheet* sheet, int row) const {
 		if (position1->select(sheet, row) == true && position2->select(sheet, row) == true) {
 			return true;
 		}
@@ -115,7 +115,7 @@ class Select_Or : public Select {
            delete position1;
            delete position2;
       }
-      bool select(const Spreadhsheet* sheet, int row) const {
+      bool select(const Spreadsheet* sheet, int row) const {
            if (position1->select(sheet, row) == true || position2->select(sheet, row) == true) {
                  return true;
             }
