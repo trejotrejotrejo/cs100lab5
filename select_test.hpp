@@ -17,16 +17,7 @@ TEST(SpreadsheetTest, blankSheet) {
 	EXPECT_EQ(test, "");
 }
 
- TEST(SelectContainsTest, noData) {
-        Spreadsheet sheet;
-	sheet.set_column_names({"Sports"});
-	sheet.set_selection(new Select_Contains(&sheet, "Sports", "golf"));
-        std::stringstream ss;
-        sheet.print_selection(ss);
-        std::string test = ss.str();
-        EXPECT_EQ(test, "");
- }
-TEST(SelectContainsTest, SingleCharacter) {
+TEST(SelectContainsTest, singleCharacter) {
 	Spreadsheet sheet;
 	sheet.set_column_names({"Pets"});
 	sheet.add_row({"Goldfish"});
