@@ -152,5 +152,34 @@ TEST(SelectANDTest, select_TwoColumns_TwoSelectsTwo) {
          EXPECT_EQ(test, "");
  }
 
+TEST(SelectNOTTest, OneColumnNoMatch) {
+	Spreadsheet sheet;
+	sheet.set_column_names({"Food"});
+	sheet.add_row({"apple"});
+	sheet.add_row({"apples"});
+	sheet.add_row({"Snapple"});
+
+	sheet.set_selection(
+		new Select_Not( 
+			new Select_Contains(&sheet,"Food","apple")));
+
+	std::stringstream ss;
+	sheet.print_selection(ss);
+	std::string test = ss.str();
+	EXPECT_EQ(test, "");
+}
+
+TEST(SelectNOTTest, OneColumnNoMatchNoData) {
+	Spreadsheet sheet;
+
+	sheet.set_selection(
+		new Select_Not( 
+			new Select_Contains(&sheet,"Food","Apple")));
+
+	std::stringstream ss;
+	sheet.print_selection(ss);
+	std::string test = ss.str();
+	EXPECT_EQ(test, "");
+}
 
 #endif //__SELECT_TEST__
